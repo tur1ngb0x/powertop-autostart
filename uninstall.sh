@@ -22,7 +22,7 @@ text "UNINSTALLING SERVICE"
 rm -fv /etc/systemd/system/pwrtp.service
 
 text "UNINSTALLING SCRIPT"
-rm -fv /usr/bin/pwrtp.sh
+rm -fv /usr/local/bin/pwrtp.sh
 
 text "RELOADING DAEMON"
 systemctl daemon-reload

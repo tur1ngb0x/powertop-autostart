@@ -1,14 +1,14 @@
 [Unit]
 Description=Powertop Autostart Service
 Documentation="https://github.com/tur1ngb0x/powertop-autostart"
-ConditionPathExists=/usr/bin/pwrtp.sh
-ConditionFileNotEmpty=/usr/bin/pwrtp.sh
-ConditionFileIsExecutable=/usr/bin/pwrtp.sh
+ConditionPathExists=/usr/local/bin/pwrtp.sh
+ConditionFileNotEmpty=/usr/local/bin/pwrtp.sh
+ConditionFileIsExecutable=/usr/local/bin/pwrtp.sh
 
 [Service]
 Type=idle
 Environment="TERM=dumb"
-ExecStart=/usr/bin/pwrtp.sh
+ExecStart=/usr/local/bin/pwrtp.sh
 
 [Install]
 WantedBy=multi-user.target

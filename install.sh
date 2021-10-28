@@ -16,11 +16,11 @@ fi
 
 install_script() {
    text "INSTALLING SCRIPT"
-   if [[ -f /usr/bin/pwrtp.sh ]]; then
-      rm -fv /usr/bin/pwrtp.sh
+   if [[ -f /usr/local/bin/pwrtp.sh ]]; then
+      rm -fv /usr/local/bin/pwrtp.sh
    fi
-   cp -iv ./pwrtp.sh /usr/bin/pwrtp.sh
-   chmod +x /usr/bin/pwrtp.sh
+   cp -iv ./pwrtp.sh /usr/local/bin/pwrtp.sh
+   chmod +x /usr/local/bin/pwrtp.sh
 }
 
 install_service() {

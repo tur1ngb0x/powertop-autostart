@@ -48,6 +48,6 @@ sudo ./uninstall.sh
     * Wireless - WiFi/Headphones
 * We will need path of the device in order to blacklist it.
 * Toggle **Bad** state for respective device(s) and copy the command(s) printed on the top which contains the path of the device.
-* Open `/usr/bin/pwrtp.sh` with a text editor.
+* Open `/usr/local/bin/pwrtp.sh` with a text editor.
 * In the **block-device** section of the file, add your device path as mentioned in the example template.
-* Save the file and run `/usr/bin/pwrtp.sh` to apply the changes.
+* Save the file and run `/usr/local/bin/pwrtp.sh` to apply the changes.
