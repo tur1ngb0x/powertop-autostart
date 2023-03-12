@@ -1,30 +1,19 @@
 #!/usr/bin/env bash
 
-text() {
-   printf "\n$1\n"
-}
+[[ $(id -u) -ne 0 ]] && echo "Run the script as a non-root user. Exiting." && exit
+echo() { tput bold && tput setaf 4 && printf "%s\n" "${1}" && tput sgr0; }
 
-if [[ $EUID -ne 0 ]]; then
-   echo "Error: Run this script as root, exiting." && exit 1
-fi
-
-text "POWERTOP AUTOSTART UNINSTALLER"
-read -r -p " > Type 'yes' to proceed: "
-if [ "$REPLY" != "yes" ]; then
-   echo "Error: Incorrect input, exiting." && exit 1
-fi
-
-text "DISABLING SERVICE"
+echo 'disabling service'
 systemctl stop pwrtp.service
 systemctl disable pwrtp.service
 
-text "UNINSTALLING SERVICE"
+echo 'uninstalling service'
 rm -fv /etc/systemd/system/pwrtp.service
 
-text "UNINSTALLING SCRIPT"
+echo 'uninstalling script'
 rm -fv /usr/local/bin/pwrtp.sh
 
-text "RELOADING DAEMON"
+echo 'reloading daemon'
 systemctl daemon-reload
 
-text "SUCCESSFULLY UNINSTALLED"
+echo 'successfully uninstalled, reboot to power cycle pcie devices'

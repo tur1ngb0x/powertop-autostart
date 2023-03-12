@@ -1,47 +1,22 @@
 #!/usr/bin/env bash
 
-text() {
-   printf "\n$1\n"
-}
+[[ $(id -u) -ne 0 ]] && echo "Run the script as a non-root user. Exiting." && exit
+cdir=$(builtin cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
+echo() { tput bold && tput setaf 4 && printf "%s\n" "${1}" && tput sgr0; }
 
-if [[ $EUID -ne 0 ]]; then
-   echo "Error: Run this script as root, exiting." && exit 1
-fi
+echo 'installing script'
+rm -fv /usr/local/bin/pwrtp.sh
+cp -fv "${cdir}"/pwrtp.sh /usr/local/bin/pwrtp.sh
+chmod +x /usr/local/bin/pwrtp.sh
 
-text "POWERTOP AUTOSTART INSTALLER"
-read -r -p " > Type 'yes' to proceed: "
-if [ "$REPLY" != "yes" ]; then
-   echo "Error: Incorrect input, exiting." && exit 1
-fi
+echo 'installing service'
+rm -fv /etc/systemd/system/pwrtp.service
+cp -fv "${cdir}"/pwrtp.service /etc/systemd/system/pwrtp.service
 
-install_script() {
-   text "INSTALLING SCRIPT"
-   if [[ -f /usr/local/bin/pwrtp.sh ]]; then
-      rm -fv /usr/local/bin/pwrtp.sh
-   fi
-   cp -iv ./pwrtp.sh /usr/local/bin/pwrtp.sh
-   chmod +x /usr/local/bin/pwrtp.sh
-}
+echo 'enabling service'
+systemctl enable --now pwrtp.service
 
-install_service() {
-   text "INSTALLING SERVICE"
-   if [[ -f /etc/systemd/system/pwrtp.service ]]; then
-      rm -fv /etc/systemd/system/pwrtp.service
-   fi
-   cp -iv ./pwrtp.service /etc/systemd/system/pwrtp.service
-}
+echo 'reloading daemon'
+systemctl daemon-reload
 
-enable_service() {
-   text "ENABLING SERVICE"
-   systemctl enable --now pwrtp.service
-
-   text "RELOADING DAEMON"
-   systemctl daemon-reload
-}
-
-finished() {
-   text "SUCCESSFULLY INSTALLED"
-}
-
-# Begin script from here
-(install_script && install_service && enable_service && finished) || (echo "FAILED TO INSTALL" && exit 1)
+echo 'successfully installed'

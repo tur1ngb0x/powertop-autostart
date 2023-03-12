@@ -12,4 +12,3 @@ ExecStart=/usr/local/bin/pwrtp.sh
 
 [Install]
 WantedBy=multi-user.target
-
