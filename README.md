@@ -19,17 +19,29 @@ $ sudo pacman -Syu && sudo pacman -S git powertop
 ## Installation
 
 ```plain
+# Clone repository
 $ git clone https://github.com/tur1ngb0x/powertop-autostart.git
+
+# Move into directory
 $ cd powertop-autostart
+
+# Mark the script as executable
 $ chmod +x ./install.sh
+
+# Run the script
 $ sudo ./install.sh
 ```
 
 ## Uninstallation
 
 ```plain
+# Move into directory
 $ cd powertop-autostart
+
+# Mark the script as executable
 $ chmod +x ./uninstall.sh
+
+# Run the script
 $ sudo ./uninstall.sh
 ```
 
