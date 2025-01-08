@@ -1,6 +1,6 @@
 [Unit]
-Description=Powertop Autostart Service
-Documentation="https://github.com/tur1ngb0x/powertop-autostart"
+Description=Powertop Autostart
+Documentation="https://github.com/tur1ngb0x/powertop-autostart/blob/main/README.md"
 ConditionPathExists=/usr/local/bin/pwrtp.sh
 ConditionFileNotEmpty=/usr/local/bin/pwrtp.sh
 ConditionFileIsExecutable=/usr/local/bin/pwrtp.sh
