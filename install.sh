@@ -1,22 +1,26 @@
 #!/usr/bin/env bash
 
-[[ $(id -u) -ne 0 ]] && echo "Run the script as a non-root user. Exiting." && exit
+[[ $(id -u) -ne 0 ]] && echo "Run the script as a root user, exiting..." && exit 1
 cdir=$(builtin cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
-echo() { tput bold && tput setaf 4 && printf "%s\n" "${1}" && tput sgr0; }
+function header { tput bold && tput setaf 4 && printf "%s\n" "${1}" && tput sgr0; }
 
-echo 'installing script'
+header 'Installing powertop script...'
 rm -fv /usr/local/bin/pwrtp.sh
 cp -fv "${cdir}"/pwrtp.sh /usr/local/bin/pwrtp.sh
-chmod +x /usr/local/bin/pwrtp.sh
+chmod 0755 /usr/local/bin/pwrtp.sh
+chown root:root /usr/local/bin/pwrtp.sh
 
-echo 'installing service'
+header 'Installing powertop service...'
 rm -fv /etc/systemd/system/pwrtp.service
 cp -fv "${cdir}"/pwrtp.service /etc/systemd/system/pwrtp.service
+chmod -v 0644 /etc/systemd/system/pwrtp.service
+chown -v root:root /etc/systemd/system/pwrtp.service
 
-echo 'enabling service'
 systemctl enable --now pwrtp.service
-
-echo 'reloading daemon'
 systemctl daemon-reload
 
-echo 'successfully installed'
+header 'Installation complete...'
+ls /usr/local/bin/pwrtp.sh
+ls /etc/systemd/system/pwrtp.service
+
+header 'Reboot immediately to apply changes...'
